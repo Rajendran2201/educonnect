@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #d8b4fe, #a78bfa);
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        h2 {
+            color: #6d28d9;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #6d28d9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #5b21b6;
+        }
+        .toggle {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .toggle a {
+            color: #6d28d9;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .alert-box {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            color: #6d28d9;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            min-width: 300px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .alert-box button {
+            background: #6d28d9;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .alert-box button:hover {
+            background: #5b21b6;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit" onclick="postLogin(event)">Login</button>
+        </form>
+        <p class="toggle">Don't have an account? <a onclick="toggleForm()">Signup</a></p>
+    </div>
+
+    <div id="customAlert" class="alert-box">
+        <p id="alertMessage">The user has been logged in</p>
+        <button onclick="closeAlert()">OK</button>
+    </div>
+
+    <script>
+        function toggleForm() {
+            const container = document.querySelector('.container');
+            if (container.querySelector('h2').innerText === "Login") {
+                container.querySelector('h2').innerText = "Signup";
+                container.querySelector('.toggle').innerHTML = 'Already have an account? <a onclick="toggleForm()">Login</a>';
+                const nameInput = document.createElement('input');
+                nameInput.type = "text";
+                nameInput.placeholder = "Full Name";
+                container.querySelector('form').insertBefore(nameInput, container.querySelector('form').firstChild);
+                container.querySelector('button').innerText = "Signup";
+            } else {
+                container.querySelector('h2').innerText = "Login";
+                container.querySelector('.toggle').innerHTML = "Don't have an account? <a onclick='toggleForm()'>Signup</a>";
+                container.querySelector('form').removeChild(container.querySelector('form').firstChild);
+                container.querySelector('button').innerText = "Login";
+            }
+        }
+
+        function postLogin(event){
+            event.preventDefault();
+            document.getElementById('customAlert').style.display = 'block';
+        }
+
+        function closeAlert() {
+            document.getElementById('customAlert').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

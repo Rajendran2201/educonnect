@@ -1,0 +1,14 @@
+{% load static %}
+<nav>
+<div class="logo">
+  <img src="{% static 'assets/logo.jpeg' %}" alt="Educonnect Logo">
+</div>
+<h1 id="nav-left">Educonnect</h1>
+<div class="nav-right">
+    <input type="text" class="search-bar" placeholder="Search...">
+    <div class="auth-links">
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'contact' %}">Contact</a>
+    </div>
+</div>
+</nav>

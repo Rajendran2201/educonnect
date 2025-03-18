@@ -1,0 +1,149 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #d8b4fe, #a78bfa);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h2 {
+            color: #6d28d9;
+            margin-bottom: 15px;
+        }
+
+        select {
+            width: 220px;
+            padding: 10px;
+            border: 1px solid #6d28d9;
+            border-radius: 5px;
+            outline: none;
+            font-size: 16px;
+            margin-bottom: 20px;
+            background: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #6d28d9;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f3e8ff;
+        }
+
+        tr:hover {
+            background: #e0c3fc;
+            transition: 0.3s;
+        }
+
+        .present {
+            color: green;
+            font-weight: bold;
+        }
+
+        .absent {
+            color: red;
+            font-weight: bold;
+        }
+
+        #noRecords {
+            display: none;
+            color: #d9534f;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Attendance Management</h2>
+
+        <label for="studentSelect"><strong>Select Student:</strong></label>
+        <select id="studentSelect" onchange="filterAttendance()">
+            <option value="">-- Select Student --</option>
+            {% for student in students %}
+                <option value="{{ student.id }}">{{ student.name }} - {{ student.class_name }}</option>
+            {% endfor %}
+        </select>
+
+        <table id="attendanceTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for attendance in attendance_records %}
+                <tr data-student="{{ attendance.student.id }}">
+                    <td>{{ attendance.date|date:"d M Y" }}</td>
+                    <td class="{% if attendance.status == 'Present' %}present{% else %}absent{% endif %}">
+                        {{ attendance.status }}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2">No attendance records found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p id="noRecords">No records found for this student.</p>
+    </div>
+
+    <script>
+        function filterAttendance() {
+            var selectedStudent = document.getElementById("studentSelect").value;
+            var rows = document.querySelectorAll("#attendanceTable tbody tr");
+            var hasRecords = false;
+
+            rows.forEach(row => {
+                if (row.hasAttribute("data-student")) {
+                    if (row.getAttribute("data-student") === selectedStudent || selectedStudent === "") {
+                        row.style.display = "";
+                        hasRecords = true;
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+            });
+
+            document.getElementById("noRecords").style.display = hasRecords ? "none" : "block";
+        }
+    </script>
+
+</body>
+</html>
