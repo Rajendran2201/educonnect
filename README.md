@@ -49,7 +49,7 @@ To run the EduConnect platform locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/educonnect.git
+   git clone https://github.com/Rajendran2201/educonnect.git
    cd educonnect
    ```
 
