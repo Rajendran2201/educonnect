@@ -4,24 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduConnect - Teachers' Forum & Virtual Lab</title>
-    <link rel="stylesheet" href="style_2.css">
+    <style>
+      /* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    text-align: center;
+}
+
+/* Header */
+header {
+    background-color: #5f43b2;
+    color: white;
+    padding: 15px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Sign-In Page */
+.signin {
+    background: white;
+    width: 350px;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.signin h2 {
+    color: #5f43b2;
+    margin-bottom: 20px;
+}
+
+.signin input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.signin a {
+    width: 90%;
+    background-color: #5f43b2;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 25px;
+}
+
+.signin a:hover {
+    background-color: #483088;
+}
+
+/* Discussion Box */
+.discussion-box {
+    background: #ece6ff;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.discussion-box h3 {
+    color: #5f43b2;
+}
+
+.discussion-box button {
+    background-color: #5f43b2;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.discussion-box button:hover {
+    background-color: #483088;
+}
+
+    </style>
 </head>
 <body>
     <header>EduConnect</header>
 
     <div class="signin" id="signinPage">
-        <h2>Teacher Sign-In</h2>
+      <h3>Connect & Discuss</h3>
+      <p id="welcomeMessage"></p>
         <input type="text" id="teacherName" placeholder="Teacher Name" required>
         <input type="text" id="teacherID" placeholder="Teacher ID" required>
         <input type="text" id="schoolName" placeholder="School Name" required>
-        <button onclick="signIn()">Sign In</button>
+        <a href="{% url 'discussion_forum' %}" onclick="signIn()">Sign In</a>
         
-        <!-- Discussion box, hidden initially -->
-        <div class="discussion-box" id="discussionBox" style="display: none;">
-            <h3>Connect & Discuss</h3>
-            <p id="welcomeMessage"></p>
-            <button onclick="redirectToForum()">Start Discussion</button>
-        </div>
     </div>
 
     <script>
@@ -48,11 +130,6 @@
             } else {
                 alert("Please fill all fields.");
             }
-        }
-
-        function redirectToForum() {
-            // Redirect to the forum page
-            window.location.href = "forum.html";
         }
         
     </script>

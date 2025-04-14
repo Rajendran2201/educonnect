@@ -1,22 +1,11 @@
 <footer>
   <div class="footer-section">
-      <h5>Quick Links</h5>
       <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Features</a></li>
-          <li><a href="#">Pricing</a></li>
-          <li><a href="#">FAQs</a></li>
-          <li><a href="#">About</a></li>
-      </ul>
-  </div>
-  <div class="footer-section">
-      <h5>Resources</h5>
-      <ul>
-          <li><a href="#">Virtual Lab</a></li>
-          <li><a href="#">Career Guidance</a></li>
-          <li><a href="#">Workshops</a></li>
-          <li><a href="#">Discussion Forum</a></li>
-          <li><a href="#">Donate</a></li>
+          <li><a href="https://virtuallabb.netlify.app/">Virtual Lab</a></li>
+          <li><a href="{% url 'careerguidance' %}">Career Guidance</a></li>
+          <li><a href="{% url 'eventbooking' %}">Workshops</a></li>
+          <li><a href="{% url 'discussion_login' %}">Discussion Forum</a></li>
+          <li><a href="{% url 'attendance' %}">Donate</a></li>
       </ul>
   </div>
 </footer>

@@ -1,0 +1,123 @@
+<!-- EduConnect Forum Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduConnect Forum</title>
+    <style>
+
+      body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f9;
+        text-align: center;
+    }
+    
+    /* Header */
+    header {
+        background-color: #5f43b2;
+        color: white;
+        padding: 15px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+      /* Forum Page */
+.forum {
+    background: white;
+    width: 60%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.forum textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: none;
+}
+
+.forum button {
+    background-color: #5f43b2;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+    width: 30%;
+}
+
+.forum button:hover {
+    background-color: #483088;
+}
+
+#forumPosts {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.post {
+    background: #ece6ff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <header>EduConnect - Discussion Forum</header>
+
+    <div class="forum">
+        <h2>Welcome to the Discussion Forum</h2>
+        <textarea id="postInput" placeholder="Write a post..."></textarea>
+        <button onclick="postMessage()">Post</button>
+        <div id="forumPosts"></div>
+    </div>
+
+    <script>
+        // Load stored posts on page load
+        window.onload = function () {
+            let posts = JSON.parse(localStorage.getItem("forumPosts")) || [];
+            let forumPosts = document.getElementById("forumPosts");
+
+            posts.forEach(post => {
+                let postDiv = document.createElement("div");
+                postDiv.className = "post";
+                postDiv.innerHTML = `<strong>${post.name}:</strong> ${post.message}`;
+                forumPosts.appendChild(postDiv);
+            });
+        };
+
+        function postMessage() {
+            let postText = document.getElementById("postInput").value;
+            let teacherName = localStorage.getItem("teacherName") || "Anonymous";
+
+            if (postText.trim() !== "") {
+                let forumPosts = document.getElementById("forumPosts");
+                let postDiv = document.createElement("div");
+                postDiv.className = "post";
+                postDiv.innerHTML = `<strong>${teacherName}:</strong> ${postText}`;
+                forumPosts.appendChild(postDiv);
+
+                // Save to localStorage
+                let posts = JSON.parse(localStorage.getItem("forumPosts")) || [];
+                posts.push({ name: teacherName, message: postText });
+                localStorage.setItem("forumPosts", JSON.stringify(posts));
+
+                document.getElementById("postInput").value = "";
+            } else {
+                alert("Please enter a message.");
+            }
+        }
+    </script>
+</body>
+</html>
